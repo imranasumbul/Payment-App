@@ -11,6 +11,11 @@ function headerAuth(req, res, next){
 
     const JWTtoken = headerAuthToken.split(" ")[1];
     const decoded = jwt.verify(JWTtoken, JWT_KEY);
+    if(!decoded){
+        res.json({
+            msg: `You sent the wrong token`
+        })
+    }
    
     console.log(decoded.id);
     req.id = decoded.id;

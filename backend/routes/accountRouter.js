@@ -2,7 +2,7 @@ const { Prisma } = require("@prisma/client");
 const express = require("express");
 const prisma = require("../prismaDB");
 
-
+const headerAuth = require("../middlewares/headerAuth");
 
 const accountRouter = express.Router();
 accountRouter.get("/hi", function (req, res){
@@ -11,8 +11,8 @@ accountRouter.get("/hi", function (req, res){
     })
 })
 
-accountRouter.get('/balance', async function (req, res){
-    const id = req.body.userId;
+accountRouter.get('/balance', headerAuth, async function (req, res){
+    const id = req.id;
     const userBalance = await prisma.getBalance(id);
     
     res.json({
