@@ -4,7 +4,8 @@ import FormSubheading from "./FormSubheading"
 import SubmitFormBtn from "./SubmitFormBtn"
 import BottomWarning from "./BottomWarning"
 import Signin from "./Signin";
-import React from "react"
+import React, { useMemo, useEffect, useState } from "react"
+import axios from 'axios'
 
 function Signup(){
     const [email, setEmail] = useState("");
@@ -12,6 +13,22 @@ function Signup(){
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [submitBtnClicked, setSubmitBtnClicked] = useState(false);
+    const [response, setResponse] = useState({});
+
+    useEffect( () => {
+        const a = async () => {
+            await axios.post("http://localhost:3030/api/v1/users/signup", {
+                username: email,
+                password,
+                firstName,
+                lastName
+            })
+            setTimeout(() =>  {
+                setSubmitBtnClicked(false);
+            }, 5000)
+        };
+        a();
+    } , [submitBtnClicked])
 
     return (
         
@@ -33,8 +50,8 @@ function Signup(){
                 <FormInputs onChangeFunction={function (e){
                     setLastName(e.target.value);
                 }} type={"text"} placeholder={"Doe"} title={"Last Name"} />
-                < SubmitFormBtn onClickFunc={ async function (){
-                    
+                < SubmitFormBtn onClickFunc={function (){
+                    setSubmitBtnClicked(true);
                 }} buttonText={"Sign Up"}/>
 
                 <BottomWarning to={"/signin"} label={"Already have an account? "} ButtonText={"Sign In"}/>

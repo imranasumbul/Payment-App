@@ -1,3 +1,5 @@
+import React from "react";
+
 function SubmitFormBtn({buttonText, onClickFunc}){
     return (
         <>

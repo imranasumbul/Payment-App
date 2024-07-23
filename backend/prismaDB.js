@@ -162,6 +162,37 @@ async function transferMoney(senderId, receiverId, amount){
     
 }
 
+async function deleteUsersWithId(...ids){
+    
+    await prisma.$transaction(async function (){
+        
+        ids.map(async (id) => {
+            
+            const a = await prisma.userIDInfo.findUnique({
+                where:{
+                    id
+                }
+            })
+            if(a){
+                await prisma.accounts.delete({
+                    where:{
+                        userId: id
+                    }
+                
+                })
+                await prisma.userIDInfo.delete({
+                    where:{
+                        id: id
+                    }
+                })
+                console.log(`user with id ${id} deleted`)
+            }
+            
+        })
+    })
+}
+
+
 module.exports = {
     createUser,
     userAlreadyExists,
@@ -169,5 +200,6 @@ module.exports = {
     updateUserInfo, 
     findMultipleUsers,
     getBalance,
-    transferMoney
+    transferMoney,
+    deleteUsersWithId
 };
