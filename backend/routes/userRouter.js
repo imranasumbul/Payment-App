@@ -5,14 +5,9 @@ const jwt = require("jsonwebtoken");
 const signupVerificationObject = require("../middlewares/signupAuth");
 const signinVerificationObject = require("../middlewares/signinAuth");
 const JWT_KEY = require("../config");
-//const UserDB = require("../../../Payment-App/backend/db");
+
 const headerAuth = require("../middlewares/headerAuth");
 const updationMiddleware = require("../middlewares/updationAuth");
-userRouter.get("/", function (req, res) {
-    res.json({
-        msg: "from api/v1/users"
-    })
-})
 
 
 userRouter.post('/signup', signupVerificationObject.usernameAuth, signupVerificationObject.passwordAuth, signupVerificationObject.firstAndLastNameAuth, async function (req, res) {
@@ -37,7 +32,7 @@ userRouter.post('/signup', signupVerificationObject.usernameAuth, signupVerifica
         console.log("Error occured", e);
     }
     
-    //res.send("user created")
+    
 })
 
 userRouter.post("/signin", signinVerificationObject.usernameAndPasswordAuth, async function (req, res) {

@@ -1,4 +1,4 @@
-const { Prisma } = require("@prisma/client");
+
 const express = require("express");
 const prisma = require("../prismaDB");
 
