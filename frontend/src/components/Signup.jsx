@@ -23,9 +23,7 @@ function Signup(){
                 firstName,
                 lastName
             })
-            setTimeout(() =>  {
-                setSubmitBtnClicked(false);
-            }, 5000)
+            
         };
         a();
     } , [submitBtnClicked])

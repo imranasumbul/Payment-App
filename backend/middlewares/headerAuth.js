@@ -4,7 +4,7 @@ function headerAuth(req, res, next){
     const headerAuthToken = req.headers.authorization;
 
     if(!(headerAuthToken.startsWith("Bearer "))){
-        res.json({
+        return res.json({
             msg: "Please send correct format for authorization header"
         })
     }
@@ -12,7 +12,7 @@ function headerAuth(req, res, next){
     const JWTtoken = headerAuthToken.split(" ")[1];
     const decoded = jwt.verify(JWTtoken, JWT_KEY);
     if(!decoded){
-        res.json({
+        return res.json({
             msg: `You sent the wrong token`
         })
     }

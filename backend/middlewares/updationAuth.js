@@ -14,7 +14,7 @@ function updationMiddleware(req, res, next) {
     console.log(ipInfo);
     const success = updationInfo.safeParse(ipInfo);
     if (!success) {
-        res.json({
+        return res.json({
             msg: "Please send correct info (first name and last name less than 50 chars)"
         })
     }

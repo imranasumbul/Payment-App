@@ -11,19 +11,19 @@ const usernameAndPasswordAuth = async function (req, res, next){
     const parsedUsername = usernameverify.safeParse({username});
     
     if(!parsedUsername.success){
-        res.status(411).json({
-            msg: "The username must be an email id with more than 4 and less than 50 characters"
+        return res.status(411).json({
+            msg: "The username must be a valid email id with more than 4 characters"
         })
     }
     
     const usernameInDB = await prisma.userAlreadyExists(username);
     if(!usernameInDB){
-        res.status(411).json({
+        return res.status(411).json({
             msg: "This email ID is not registered. Try Registering"
         })
     }else if(password !== usernameInDB.password){
         
-            res.status(411).json({
+            return res.status(411).json({
                 msg: "You entered wrong password"
             })
         }

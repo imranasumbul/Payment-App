@@ -4,15 +4,31 @@ import FormInputs from "./FormInputs";
 import SubmitFormBtn from "./SubmitFormBtn";
 import BottomWarning from "./BottomWarning";
 import { useCallback, useState } from "react";
-import React from "react"
+import React, { useEffect } from "react"
+import axios from "axios";
+
 
 function Signin(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    
     const [submitBtnClicked, setSubmitBtnClicked] = useState(false);
     
+    useEffect( () => {
+        const a = async () => {
+            await axios.post("http://localhost:3030/api/v1/users/signin", {
+                username: email,
+                password
+                
+            })
+            setTimeout(() => {
+                setSubmitBtnClicked(false);
+            }, 5000);
+        };
+        a();
+    } , [submitBtnClicked])
+
+
     return (
         
         <body className="w-full px-4 min-h-screen flex justify-center items-center">
@@ -27,8 +43,10 @@ function Signin(){
                 <FormInputs type={"text"} onChangeFunction={function (e){
                     setPassword(e.target.value);
                 }}  placeholder={"password"} title={"Password"} />
-                < SubmitFormBtn buttonText={"Sign In"}/>
-                <BottomWarning to={"/signup"} label={"Don't have an account yet? "} ButtonText={"Sign Up"}/>
+                < SubmitFormBtn onClickFunc={function(){
+                    setSubmitBtnClicked(true);
+                }} buttonText={"Sign In"}/>
+                <BottomWarning to={"/signup"}  label={"Don't have an account yet? "} ButtonText={"Sign Up"}/>
             </div>
         </body>
         
