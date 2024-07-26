@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 import { BrowserRouter , Routes, Route } from 'react-router-dom';
 import './App.css'
-import Dashboard from './components/Dashboard';
-import Signin from './components/Signin';
-import Signup from './components/Signup';
+import Dashboard from './components/dashboard/Dashboard';
+import Signin from './components/auth/Signin';
+import Signup from './components/auth/Signup'
 import SendMoney from './components/SendMoney';
 function App() {
   

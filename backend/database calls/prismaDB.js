@@ -84,25 +84,36 @@ async function updateUserInfo(email, updationInfo){
     }
 }
 
-async function findMultipleUsers(name){
+async function findMultipleUsers(searchersId, name){
     const users = await prisma.userIDInfo.findMany({
         where: {
-            OR: [
+            AND: [
                 {
-                    firstName: {
-                        contains: name,
-                        mode: "insensitive"
-                    }
-                  
+                    OR: [
+                        {
+                            firstName: {
+                                contains: name,
+                                mode: "insensitive"
+                            }
+                          
+                        },
+                        {
+                            lastName: {
+                                contains: name,
+                                mode: "insensitive"
+                            }
+                        }
+                        
+                    ]
+
                 },
                 {
-                    lastName: {
-                        contains: name,
-                        mode: "insensitive"
+                    id: {
+                        not: searchersId
                     }
                 }
-                
             ]
+            
         }
     })
 

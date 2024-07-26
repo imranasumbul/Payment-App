@@ -15,17 +15,27 @@ function Signin(){
     const [submitBtnClicked, setSubmitBtnClicked] = useState(false);
     
     useEffect( () => {
-        const a = async () => {
-            await axios.post("http://localhost:3030/api/v1/users/signin", {
-                username: email,
-                password
+        if(submitBtnClicked === true){
+            const a = async () => {
+            
+                const response = await axios.post("http://localhost:3030/api/v1/users/signin", {
+                    username: email,
+                    password,
+                    
+                })
+                localStorage.setItem("token", response.data.msg);
+                setTimeout(() => {
+                    localStorage.removeItem("token");
+                }, 10000);
+                setTimeout(() => {
+                    setSubmitBtnClicked(false);
+                }, 10000);
+                console.log(submitBtnClicked);
                 
-            })
-            setTimeout(() => {
-                setSubmitBtnClicked(false);
-            }, 5000);
-        };
-        a();
+            };
+            a();   
+        }
+        
     } , [submitBtnClicked])
 
 

@@ -16,16 +16,28 @@ function Signup(){
     const [response, setResponse] = useState({});
 
     useEffect( () => {
-        const a = async () => {
-            await axios.post("http://localhost:3030/api/v1/users/signup", {
-                username: email,
-                password,
-                firstName,
-                lastName
-            })
+        if(submitBtnClicked === true){
+            const a = async () => {
             
-        };
-        a();
+                const response = await axios.post("http://localhost:3030/api/v1/users/signup", {
+                    username: email,
+                    password,
+                    firstName,
+                    lastName
+                })
+                localStorage.setItem("token", response.data.msg);
+                setTimeout(() => {
+                    localStorage.removeItem("token");
+                }, 10000);
+                setTimeout(() => {
+                    setSubmitBtnClicked(false);
+                }, 10000);
+                console.log(submitBtnClicked);
+                
+            };
+            a();   
+        }
+        
     } , [submitBtnClicked])
 
     return (

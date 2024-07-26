@@ -1,5 +1,7 @@
 const JWT_KEY = require("../config")
 const jwt = require("jsonwebtoken")
+
+
 function headerAuth(req, res, next){
     const headerAuthToken = req.headers.authorization;
 
