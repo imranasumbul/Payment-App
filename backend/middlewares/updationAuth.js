@@ -1,6 +1,6 @@
 const zod = require("zod");
-const UserDB = require("../db");
-const prismaDB = require("../prismaDB");
+
+const prismaDB = require("../database calls/prismaDB");
 
 const updationInfo = zod.object({
     username: zod.string().email().max(50).min(4),
